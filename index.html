@@ -9,30 +9,33 @@
     </head>
     <body>
         <div id="app">
-           <p>Name: {{user.name}}</p>
-           <p>Occupation:{{user.occupation}}</p>
-           <p>Age:{{user.age}}</p>
-            {{updateAge()}}
+            <img v-bind:src="image.src" v-bind:alt="image.alt"/>
+            <hr/>
+            <a v-bind:href="link">Go to google</a>
+            <hr/>
+            <p v-text="text"></p>
+            <hr/>
+            <p v-html="html"></p>
         </div>
     </body>
     <script>
-        const { createApp, ref, reactive } = Vue;
+        const { createApp, ref } = Vue;
         createApp({
             setup(){
-                let car = ref('Ford');
-                let user = reactive({
-                    name:'Francis',
-                    occupation:'DEV',
-                    age:18
+                let image = ref({
+                    src:'http://picsum.photos/200/300',
+                    alt:'An image'
                 });
+                const link = 'http://google.com';
+                const text = 'My text';
+                const html = '<strong>My html</strong>'
 
-                function updateAge(){
-                    setTimeout(()=>{
-                        user.age = 20;
-                    },3000)
+                return { 
+                    image, 
+                    link,
+                    text,
+                    html
                 }
-              
-                return { updateAge, user}
             }
         }).mount('#app')
     </script>
