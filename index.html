@@ -9,42 +9,23 @@
     </head>
     <body>
         <div id="app">
-            <ul>
-                <li v-for="(name,index) in names">
-                    {{ name }} : {{ index + 1 }}
-                </li>
-            </ul>
-            <hr/>
-            <ul>
-                <li v-for="(car,index) in cars">
-                    {{ car.brand }} : {{ index }}
-                </li>
-            </ul>
-            <hr/>
-            <ul>
-                <li v-for="(value,key,index) in user">
-                    {{ index }} - {{ key }} : {{ value }}
-                </li>
-            </ul>
+           <h1 v-once>{{ name }}</h1>
+           <h1>{{ name }}</h1>
+           {{ update() }}
         </div>
     </body>
     <script>
         const { createApp, ref } = Vue;
         createApp({
             setup(){
-                const names = ref(['Francis','Jane','Steve']);
-                const cars = ref([
-                    {brand:'Ferrari',color:'Red'},
-                    {brand:'Fiat',color:'Blue'},
-                    {brand:'Ford',color:'Pink'}
-                ]);
-                const user = {
-                    name:'Francis',
-                    lastname:'Jones',
-                    age:24
-                }
+                const name = ref('Francis');
 
-                return { names, cars, user }
+                function update(){
+                    setTimeout(()=>{
+                        name.value = 'Steve';
+                    },2000)
+                }
+                return { name, update }
             }
         }).mount('#app')
     </script>
