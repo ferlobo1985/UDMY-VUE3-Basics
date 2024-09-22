@@ -17,15 +17,15 @@
     <body>
         <div id="app">
             <h1>{{ name }}</h1>
-            <div v-on:dblclick="updateName">
+            <div v-on:click.right="updateName('Steve',$event)">
                 Click me !!!
             </div>
             <hr/>
-            <div class="box" v-on:mousemove="getCoord">
-                Hover me
-            </div>
-            <p>x:{{ coord.x }}</p>
-            <p>y:{{ coord.y }}</p>
+            <form v-on:submit.prevent="handleForm">
+                <input/>
+                <button type="submit">Submit</button>
+            </form>
+            
         </div>
     </body>
     <script>
@@ -35,16 +35,17 @@
                 const name = ref('Francis');
                 const coord = ref({x:0,y:0})
                 
-                function updateName(){
-                    name.value = 'Steve';
+                function updateName(newName,event){
+                    console.log(event)
+                    name.value = newName;
                 }
 
-                function getCoord(event){
-                    coord.value.x = event.clientX;
-                    coord.value.y = event.clientY
+                function handleForm(event){
+                    // event.preventDefault();
+                    console.log('form submitted')
                 }
 
-                return { name , updateName, coord, getCoord }
+                return { name , updateName, handleForm }
             }
         }).mount('#app')
     </script>
