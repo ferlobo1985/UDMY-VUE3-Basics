@@ -9,33 +9,39 @@
     </head>
     <body>
         <div id="app">
-            <img v-bind:src="image.src" v-bind:alt="image.alt"/>
-            <hr/>
-            <a v-bind:href="link">Go to google</a>
-            <hr/>
-            <p v-text="text"></p>
-            <hr/>
-            <p v-html="html"></p>
+           <p v-if="user.age < user.allowedAge">
+                You are not old enough
+           </p>
+           <p v-else-if="checkUser">
+                Welcome back francis
+           </p>
+           <p v-else>
+                You are not allowed
+           </p>
+           <hr/>
+           <p v-show="true">
+                Show it
+           </p>
+           <p v-show="false">
+                Don't show it
+            </p>
         </div>
     </body>
     <script>
         const { createApp, ref } = Vue;
         createApp({
             setup(){
-                let image = ref({
-                    src:'http://picsum.photos/200/300',
-                    alt:'An image'
+                const user = ref({
+                    name:'Francis',
+                    age:20,
+                    allowedAge:18
                 });
-                const link = 'http://google.com';
-                const text = 'My text';
-                const html = '<strong>My html</strong>'
 
-                return { 
-                    image, 
-                    link,
-                    text,
-                    html
+                function checkUser(){
+                    return user.name === 'Francis' ? true : false
                 }
+
+                return { user, checkUser }
             }
         }).mount('#app')
     </script>
