@@ -9,39 +9,42 @@
     </head>
     <body>
         <div id="app">
-           <p v-if="user.age < user.allowedAge">
-                You are not old enough
-           </p>
-           <p v-else-if="checkUser">
-                Welcome back francis
-           </p>
-           <p v-else>
-                You are not allowed
-           </p>
-           <hr/>
-           <p v-show="true">
-                Show it
-           </p>
-           <p v-show="false">
-                Don't show it
-            </p>
+            <ul>
+                <li v-for="(name,index) in names">
+                    {{ name }} : {{ index + 1 }}
+                </li>
+            </ul>
+            <hr/>
+            <ul>
+                <li v-for="(car,index) in cars">
+                    {{ car.brand }} : {{ index }}
+                </li>
+            </ul>
+            <hr/>
+            <ul>
+                <li v-for="(value,key,index) in user">
+                    {{ index }} - {{ key }} : {{ value }}
+                </li>
+            </ul>
         </div>
     </body>
     <script>
         const { createApp, ref } = Vue;
         createApp({
             setup(){
-                const user = ref({
+                const names = ref(['Francis','Jane','Steve']);
+                const cars = ref([
+                    {brand:'Ferrari',color:'Red'},
+                    {brand:'Fiat',color:'Blue'},
+                    {brand:'Ford',color:'Pink'}
+                ]);
+                const user = {
                     name:'Francis',
-                    age:20,
-                    allowedAge:18
-                });
-
-                function checkUser(){
-                    return user.name === 'Francis' ? true : false
+                    lastname:'Jones',
+                    age:24
                 }
 
-                return { user, checkUser }
+                return { names, cars, user }
             }
         }).mount('#app')
     </script>
