@@ -9,21 +9,30 @@
     </head>
     <body>
         <div id="app">
-            {{message()}}
+           <p>Name: {{user.name}}</p>
+           <p>Occupation:{{user.occupation}}</p>
+           <p>Age:{{user.age}}</p>
+            {{updateAge()}}
         </div>
     </body>
     <script>
-        const { createApp } = Vue;
+        const { createApp, ref, reactive } = Vue;
         createApp({
             setup(){
-                
-                function message(){
-                    return 'Message from function'
-                }
+                let car = ref('Ford');
+                let user = reactive({
+                    name:'Francis',
+                    occupation:'DEV',
+                    age:18
+                });
 
-                return {
-                    message
+                function updateAge(){
+                    setTimeout(()=>{
+                        user.age = 20;
+                    },3000)
                 }
+              
+                return { updateAge, user}
             }
         }).mount('#app')
     </script>
