@@ -8,7 +8,31 @@
         <title>Project one</title>
     </head>
     <body>
-
+        <div id="app">
+            <p>{{grettings}}</p>
+            <p>Is it true: {{ isTrue ? 'Yes':'No'}}</p>
+            <p>{{array[0]}}</p>
+            <p>{{obj.car}}</p>
+        </div>
     </body>
-    
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            setup(){
+                const date = new Date().toLocaleString();
+                const grettings = 'Hello guys, today is ' +  date;
+                const isTrue = true;
+                const array = ['Francis','Jane'];
+                const obj = {car:'Ferrari'}
+
+
+                return {
+                    grettings,
+                    isTrue,
+                    array,
+                    obj
+                }
+            }
+        }).mount('#app')
+    </script>
 </html>
