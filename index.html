@@ -10,46 +10,44 @@
     </head>
     <body>
         <div id="app">
-            <form v-on:submit.prevent="formHandler">
-                <label>Name:</label>
-                <input type="text" v-model.trim="formData.name"/>
-                <hr/>
-
-                <label>Lastname:</label>
-                <input type="text" v-model="formData.lastname"/>
-                <hr/>
-
-                <label>Age:</label>
-                <input type="text" v-model.number="formData.age"/>
-                <hr/>
-
-                <input type="checkbox" id="checkbox" v-model="formData.checked"/>
-                <label>{{ formData.checked }}</label>
-                <hr/>
-
-                <button type="submit">
-                    Submit
-                </button>
-            </form>
+            <div class="element" v-bind:class="colors">
+                This is my element
+            </div>
+            <hr/>
+            <div v-on:click="colors.red = !colors.red">
+                Activate red
+            </div>
         </div>
     </body>
     <script>
         const { createApp, ref } = Vue;
         createApp({
             setup(){
-                const formData = ref({
-                    name:'',
-                    lastname:'',
-                    age:'',
-                    checked:false
+                const colors = ref({
+                    blue:true,
+                    red:true
                 });
-
-                function formHandler(){
-                    console.log(formData.value)
-                } 
-               
-                return { formData, formHandler }
+                return { colors }
             }
         }).mount('#app')
     </script>
+    <style>
+        .element {
+            color:white;
+            background:black;
+            padding:10px
+        }
+        .blue {
+            background:blue
+        }
+        .green {
+            background: green;
+        }
+        .red {
+            background: red;
+        }
+        .large {
+            font-size: 40px;
+        }
+    </style>
 </html>
