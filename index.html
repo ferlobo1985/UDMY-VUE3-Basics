@@ -10,25 +10,20 @@
     </head>
     <body>
         <div id="app">
-            <div>Count:{{ count.number }}</div>
-            <button v-on:click="count.number++">Other action</button>
+           <a :href="google">Go to google</a>
+           <hr/>
+           <button @:click="alertSomething">Alert something</button>
         </div>
     </body>
     <script>
-        const { createApp, ref, watch, reactive } = Vue;
+        const { createApp, ref } = Vue;
         createApp({
             setup(){
-                const count = reactive({
-                    number:0,
-                    other:'Other prop'
-                });
-
-                watch(()=>[count.number,count.other],(newCount,oldCount)=>{
-                    console.log(newCount,'New');
-                    console.log(oldCount,'Old');
-                   // console.log(`New is ${newCount}, but old is ${oldCount}`)
-                })
-                return { count }
+                const google = ref('http://google.com');
+                const alertSomething = () => {
+                    alert('Hello !!');
+                }
+                return { google, alertSomething }
             }
         }).mount('#app')
     </script>
