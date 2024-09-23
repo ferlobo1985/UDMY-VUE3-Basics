@@ -10,38 +10,25 @@
     </head>
     <body>
         <div id="app">
-            <input v-model="data.user"/>
-            <button v-on:click="toggleActive">Other action</button>
-            <hr/>
-            <div>
-                Message: {{ message }}
-            </div>
-            <div>
-                Active: {{ isActive }}
-            </div>
+            <div>Count:{{ count.number }}</div>
+            <button v-on:click="count.number++">Other action</button>
         </div>
     </body>
     <script>
-        const { createApp, ref, computed } = Vue;
+        const { createApp, ref, watch, reactive } = Vue;
         createApp({
             setup(){
-                const data = ref({
-                    user:'',
-                    active:''
+                const count = reactive({
+                    number:0,
+                    other:'Other prop'
                 });
-                const message = computed(()=>{
-                    console.log('Message !! Triggered')
-                    return data.value.user === 'Francis' ? 'Welcome':'Not allowed'
+
+                watch(()=>[count.number,count.other],(newCount,oldCount)=>{
+                    console.log(newCount,'New');
+                    console.log(oldCount,'Old');
+                   // console.log(`New is ${newCount}, but old is ${oldCount}`)
                 })
-                const isActive= computed(()=>{
-                    console.log('Active !! Triggered')
-                    return data.value.active ? 'Active':'Not active'
-                })
-                function toggleActive(){
-                    data.value.active = data.value.active ? false : true
-                }
-            
-                return { data, message, isActive, toggleActive }
+                return { count }
             }
         }).mount('#app')
     </script>
