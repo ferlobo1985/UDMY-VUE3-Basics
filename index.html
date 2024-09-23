@@ -6,46 +6,49 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <title>Project one</title>
-        <style>
-            .box {
-                background: red;
-                width: 200px;
-                height: 200px;
-            }
-        </style>
+        
     </head>
     <body>
         <div id="app">
-            <h1>{{ name }}</h1>
-            <div v-on:click.right="updateName('Steve',$event)">
-                Click me !!!
-            </div>
-            <hr/>
-            <form v-on:submit.prevent="handleForm">
-                <input/>
-                <button type="submit">Submit</button>
+            <form v-on:submit.prevent="formHandler">
+                <label>Name:</label>
+                <input type="text" v-model.trim="formData.name"/>
+                <hr/>
+
+                <label>Lastname:</label>
+                <input type="text" v-model="formData.lastname"/>
+                <hr/>
+
+                <label>Age:</label>
+                <input type="text" v-model.number="formData.age"/>
+                <hr/>
+
+                <input type="checkbox" id="checkbox" v-model="formData.checked"/>
+                <label>{{ formData.checked }}</label>
+                <hr/>
+
+                <button type="submit">
+                    Submit
+                </button>
             </form>
-            
         </div>
     </body>
     <script>
         const { createApp, ref } = Vue;
         createApp({
             setup(){
-                const name = ref('Francis');
-                const coord = ref({x:0,y:0})
-                
-                function updateName(newName,event){
-                    console.log(event)
-                    name.value = newName;
-                }
+                const formData = ref({
+                    name:'',
+                    lastname:'',
+                    age:'',
+                    checked:false
+                });
 
-                function handleForm(event){
-                    // event.preventDefault();
-                    console.log('form submitted')
-                }
-
-                return { name , updateName, handleForm }
+                function formHandler(){
+                    console.log(formData.value)
+                } 
+               
+                return { formData, formHandler }
             }
         }).mount('#app')
     </script>
