@@ -10,60 +10,39 @@
     </head>
     <body>
         <div id="app">
-            <div class="element" 
-                v-bind:class="[
-                    colors.blueClass.active ? colors.blueClass.name : '',
-                    colors.redClass.active ? colors.redClass.name : ''
-                ]"
-                v-bind:style="colors.newStyle"
-            >
-                This is my element
-            </div>
+            <input v-model="data.user"/>
+            <button v-on:click="toggleActive">Other action</button>
             <hr/>
-            <div v-on:click="colors.redClass.active = !colors.redClass.active,colors.newStyle.fontSize = '150px'">
-                Activate red
+            <div>
+                Message: {{ message }}
+            </div>
+            <div>
+                Active: {{ isActive }}
             </div>
         </div>
     </body>
     <script>
-        const { createApp, ref } = Vue;
+        const { createApp, ref, computed } = Vue;
         createApp({
             setup(){
-                const colors = ref({
-                    blueClass:{
-                        name:'blue',
-                        active:true
-                    },
-                    redClass:{
-                        name:'red',
-                        active:false
-                    },
-                    newStyle:{
-                        fontSize:'50px',
-                        border:'5px solid green'
-                    }
+                const data = ref({
+                    user:'',
+                    active:''
                 });
-                return { colors }
+                const message = computed(()=>{
+                    console.log('Message !! Triggered')
+                    return data.value.user === 'Francis' ? 'Welcome':'Not allowed'
+                })
+                const isActive= computed(()=>{
+                    console.log('Active !! Triggered')
+                    return data.value.active ? 'Active':'Not active'
+                })
+                function toggleActive(){
+                    data.value.active = data.value.active ? false : true
+                }
+            
+                return { data, message, isActive, toggleActive }
             }
         }).mount('#app')
     </script>
-    <style>
-        .element {
-            color:white;
-            background:black;
-            padding:10px
-        }
-        .blue {
-            background:blue
-        }
-        .green {
-            background: green;
-        }
-        .red {
-            background: red;
-        }
-        .large {
-            font-size: 40px;
-        }
-    </style>
 </html>
